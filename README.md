@@ -103,6 +103,50 @@ export default defineNuxtConfig({
 })
 ```
 
+### Basic Vite Setup
+
+Add the plugin to your Vite config:
+
+```ts
+// vite.config.ts
+import discofetch from 'discofetch/vite'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    discofetch({
+      // Base URL for your API
+      baseUrl: 'https://jsonplaceholder.typicode.com',
+
+      // Define endpoints to probe
+      probes: {
+        get: {
+          '/todos': {},
+          '/todos/{id}': {
+            params: { id: 1 },
+          },
+          '/comments': {
+            query: { postId: 1 },
+          },
+        },
+        post: {
+          '/todos': {
+            body: {
+              title: 'Sample Todo',
+              completed: false,
+              userId: 1,
+            },
+          },
+        },
+      },
+
+      // If set to true, the generated client will not pre-configure baseUrl or headers - default: false
+      private: false,
+    })
+  ]
+})
+```
+
 ### Using the Generated Client with Nuxt
 
 Once configured, use the `dfetch` composable anywhere in your Nuxt app:
@@ -145,56 +189,14 @@ console.log(todo.title) // ✅ Fully typed!
 The `useDfetch` composable provides methods for all HTTP verbs you defined probes for, complete with type safety and autocompletion.
 It is also available on the server side during SSR and in Nitro API routes.
 
-### Basic Vite Setup
-
-Add the plugin to your Vite config:
-
-```ts
-// vite.config.ts
-import discofetch from 'discofetch/vite'
-import { defineConfig } from 'vite'
-
-export default defineConfig({
-  plugins: [
-    discofetch({
-      // Base URL for your API
-      baseUrl: 'https://jsonplaceholder.typicode.com',
-
-      // Define endpoints to probe
-      probes: {
-        get: {
-          '/todos': {},
-          '/todos/{id}': {
-            params: { id: 1 },
-          },
-          '/comments': {
-            query: { postId: 1 },
-          },
-        },
-        post: {
-          '/todos': {
-            body: {
-              title: 'Sample Todo',
-              completed: false,
-              userId: 1,
-            },
-          },
-        },
-      },
-
-      // Whether the generated client should exclude headers given in the vite config - default: false
-      private: false,
-    })
-  ]
-})
-```
-
-### Using the generated client with Vite
+### Using the Generated Client with Vite
 
 Once configured, you can import a preconfigured `dfetch` instance or create your own with custom configs:
 
 ```ts
-import { createDfetch, dfetch } from 'discofetch/client'
+import type { DfetchComponents, DfetchPaths } from 'discofetch'
+
+import { createDfetch, dfetch } from 'discofetch'
 
 // GET request with path parameters
 const { data: todo } = await dfetch.GET('/todos/{id}', {
@@ -209,6 +211,7 @@ const customDfetchClient = createDfetch({
   }
 })
 
+// POST request with body on custom client
 const { data: newTodo } = await customDfetchClient.POST('/todos', {
   body: {
     title: 'New Todo Item',
@@ -216,6 +219,12 @@ const { data: newTodo } = await customDfetchClient.POST('/todos', {
     userId: 2,
   },
 })
+
+// You can also access the generated TypeScript types directly
+type Todos = DfetchComponents['schemas']['Todos']
+type Body = DfetchPaths['/todos']['post']['requestBody']
+
+console.log(todo.title) // ✅ Fully typed!
 ```
 
 ## Configuration

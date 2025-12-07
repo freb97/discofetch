@@ -48,6 +48,7 @@ export const unpluginFactory: UnpluginFactory<PluginConfig | undefined> = (optio
       })
 
       await mkdir(outputDir, { recursive: true })
+
       await writeFile(
         resolve(outputDir, 'index.d.ts'),
         augmentClient(),
@@ -62,18 +63,20 @@ export const unpluginFactory: UnpluginFactory<PluginConfig | undefined> = (optio
 
     load(id) {
       if (id === 'virtual:discofetch/client') {
-        const config = !options || options?.private
-          ? undefined
-          : getRuntimeConfig(options)
-
-        return `
-import createClient from 'openapi-fetch'
-
-export const createDfetch = (options) => createClient(options)
-
-export const dfetch = createDfetch(${config ? JSON.stringify(config) : ''})
-`
+        return `export * from '${resolver.resolve('../runtime/generic/dfetch.js')}'`
       }
+    },
+
+    vite: {
+      config() {
+        const config = options && !options.private ? getRuntimeConfig(options) : undefined
+
+        return {
+          define: {
+            __DISCOFETCH_CONFIG__: JSON.stringify(config),
+          },
+        }
+      },
     },
   }
 }

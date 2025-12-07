@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { dfetch } from 'discofetch/client'
+import { dfetch } from 'discofetch'
 import { ref } from 'vue'
 
 const todo = ref()
@@ -13,12 +13,14 @@ async function fetchTodo() {
 
   todo.value = data
 }
-
-fetchTodo()
 </script>
 
 <template>
   <div>
+    <button @click="fetchTodo">
+      Fetch Todo
+    </button>
+
     <pre>{{ todo }}</pre>
   </div>
 </template>

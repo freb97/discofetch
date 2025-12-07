@@ -26,6 +26,10 @@
     "types"
   ],
   "exports": {
+    ".": {
+      "types": "./dist/runtime/generic/dfetch.d.ts",
+      "import": "./dist/runtime/generic/dfetch.js"
+    },
     "./nuxt": {
       "types": "./dist/types.d.mts",
       "import": "./dist/module.mjs"
@@ -42,7 +46,7 @@
       "types": "./dist/types/client.d.ts"
     }
   },
-  "main": "./dist/module.mjs",
+  "main": "./dist/runtime/generic/dfetch.js",
   "typesVersions": {
     "*": {
       "./nuxt": [
