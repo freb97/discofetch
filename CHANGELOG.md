@@ -1,3 +1,6 @@
+# 0.3.0
+- Added vite support
+
 # 0.2.2
 - Fixed private client types
 
