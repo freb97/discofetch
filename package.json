@@ -1,7 +1,7 @@
 {
   "name": "discofetch",
   "type": "module",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "🪩 The fetch client that types itself.",
   "author": {
     "name": "Frederik Bußmann",

@@ -1,3 +1,6 @@
+# 0.3.2
+- Removed unused dependencies
+
 # 0.3.1
 - Updated vite usage
 - Fixed missing vite client configuration
