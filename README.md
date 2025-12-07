@@ -14,7 +14,7 @@ at build time and creates a fully-typed fetch client for runtime use with zero o
 
 - 🔍 **Automatic type discovery** - No manual type definitions needed
 - 🛡️ **Full type safety** - TypeScript types for paths, parameters, and responses
-- 🚀 **Framework integrations** - Built-in support for Nuxt (Vite coming soon)
+- 🚀 **Framework integrations** - Built-in support for Vite and Nuxt (more coming soon)
 - 🎯 **Runtime validation** - Optional Zod schema generation for response validation
 - 🔧 **Customizable** - Hooks for customizing the discovery process
 - ⚡ **Build-time generation** - Zero runtime overhead for type discovery
