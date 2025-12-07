@@ -5,11 +5,12 @@ export default defineBuildConfig({
 
   entries: [
     'src/module.ts',
+    'src/adapters/vite.ts',
 
     {
       builder: 'mkdist',
-      input: 'src/client',
-      outDir: 'dist/client',
+      input: 'src/types',
+      outDir: 'dist/types',
     },
   ],
 })

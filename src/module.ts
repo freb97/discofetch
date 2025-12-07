@@ -14,6 +14,16 @@ export interface ModuleOptions extends DiscoverConfig {
   private?: boolean
 }
 
+declare module '@nuxt/schema' {
+  interface RuntimeConfig {
+    discofetch: Pick<ModuleOptions, 'baseUrl' | 'headers'>
+  }
+
+  interface PublicRuntimeConfig {
+    discofetch: Pick<ModuleOptions, 'baseUrl' | 'headers'>
+  }
+}
+
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: 'discofetch',
@@ -30,7 +40,7 @@ export default defineNuxtModule<ModuleOptions>({
       logger.info('Source files detected, enabling module aliases for development mode.')
 
       nuxt.options.alias = nuxt.options.alias ??= {}
-      nuxt.options.alias['discofetch/client'] = clientSource
+      nuxt.options.alias['discofetch/types/client'] = clientSource
 
       nuxt.options.nitro.typescript ??= {}
       nuxt.options.nitro.typescript.tsConfig ??= {}
@@ -65,7 +75,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     const imports = [
       {
-        from: resolver.resolve('./runtime/client'),
+        from: resolver.resolve('./runtime/nuxt/dfetch'),
         name: 'useDfetch',
       },
       {
@@ -102,13 +112,3 @@ export default defineNuxtModule<ModuleOptions>({
     }
   },
 })
-
-declare module '@nuxt/schema' {
-  interface RuntimeConfig {
-    discofetch: Pick<ModuleOptions, 'baseUrl' | 'headers'>
-  }
-
-  interface PublicRuntimeConfig {
-    discofetch: Pick<ModuleOptions, 'baseUrl' | 'headers'>
-  }
-}
