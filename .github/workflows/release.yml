@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Lint
+      - name: Lint package
         run: bun run lint
 
   typecheck:
@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Typecheck Module
+      - name: Typecheck package
         run: bun run typecheck
 
   release:
@@ -46,12 +46,12 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: v24.10.0
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: bun install
 
-      - name: Build
+      - name: Build package
         run: bun run build
 
       - name: Release module

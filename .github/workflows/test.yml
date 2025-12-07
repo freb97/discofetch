@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - '*'
+      - "*"
 
 jobs:
   lint:
@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Lint
+      - name: Lint package
         run: bun run lint
 
   typecheck:
@@ -28,7 +28,10 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Typecheck Module
+      - name: Prepare types
+        run: bun run nuxt:prepare
+
+      - name: Typecheck package
         run: bun run typecheck
 
   build:
@@ -42,5 +45,5 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build
+      - name: Build package
         run: bun run build
