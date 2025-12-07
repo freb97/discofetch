@@ -5,8 +5,6 @@
 [![NPM last update][npm-last-update-src]][npm-last-update-href]
 [![License][license-src]][license-href]
 
-Use legacy APIs with confidence.
-
 Discofetch is a type-safe fetch client that automatically discovers and generates TypeScript
 types for REST APIs that lack OpenAPI specifications.
 Instead of manually writing types or dealing with `any`, Discofetch probes your API endpoints
@@ -54,10 +52,15 @@ export default defineNuxtConfig({
 
 ### Vite
 
-<!--
-TODO: Find out what is needed to make it work with vite (MINIMAL!!!)
-Like only adding discofetch/client to the types or something
--->
+Update your tsconfig.json:
+
+```json
+{
+  "include": [
+    "node_modules/.discofetch/index.d.ts"
+  ]
+}
+```
 
 ## Usage
 
