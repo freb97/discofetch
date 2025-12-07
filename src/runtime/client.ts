@@ -1,20 +1,12 @@
-import type { components, paths } from 'discofetch/client'
+import type { components, paths } from 'discofetch/types/client'
 
-import { useRuntimeConfig } from '#imports'
 import createClient from 'openapi-fetch'
 
-export function createDfetch(options?: Parameters<typeof createClient>[0]) {
+export function useDfetch(options?: Parameters<typeof createClient>[0]) {
   return createClient<paths>(options)
 }
 
-export function useDfetch(options: Partial<ReturnType<typeof useRuntimeConfig>['discofetch']> = {}) {
-  return createDfetch({
-    ...(useRuntimeConfig().discofetch
-      ? useRuntimeConfig().discofetch
-      : useRuntimeConfig().public.discofetch),
-    ...options,
-  })
-}
+export const dfetch = /* #__PURE__ */ useDfetch()
 
 export type {
   components as DfetchComponents,

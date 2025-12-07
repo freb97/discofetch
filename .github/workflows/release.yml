@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Lint
+      - name: Lint package
         run: bun run lint
 
   typecheck:
@@ -32,7 +32,10 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Typecheck Module
+      - name: Build package
+        run: bun run build
+
+      - name: Typecheck package
         run: bun run typecheck
 
   release:
@@ -51,7 +54,7 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build
+      - name: Build package
         run: bun run build
 
       - name: Release module
