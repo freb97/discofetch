@@ -1,3 +1,7 @@
+# 0.3.1
+- Updated vite usage
+- Fixed missing vite client configuration
+
 # 0.3.0
 - Added vite support
 
